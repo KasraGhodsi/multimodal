@@ -242,7 +242,7 @@ class Asset:
 
         # flip if needed (for facing left/right)
         if self.flip:
-            self.asset = self.asset.transpose(Image.FLIP_LEFT_RIGHT)
+            self.asset = self.asset.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
 
         if self.binarize_alpha:
             self.asset = binarize_alpha_channel(self.asset)
@@ -356,7 +356,7 @@ def get_transparent_asset(input_asset, transparency):
     np_asset = np.array(input_asset, dtype=np.int16)
     np_asset[:, :, 3] -= transparency
     np_asset[:, :, 3] = np.clip(np_asset[:, :, 3], 0, None)
-    return Image.fromarray(np_asset.astype(np.uint8))
+    return Image.fromarray(np.asarray(np_asset.astype(np.uint8)))
 
 
 # return rect in integer values, floor for x1,y1, ceil for x2,y2 or w,h
@@ -419,7 +419,7 @@ def paint_color_in_rect_with_mask(
     # in some cases, mask size doesn't match the rect (e.g. monster dying)
     if rect[2] != w or rect[3] != h:
         if not gen_original:
-            mask = mask.resize((rect[2], rect[3]), resample=Image.NEAREST)
+            mask = mask.resize((rect[2], rect[3]), resample=Image.Resampling.NEAREST)
         else:
             mask = mask.resize((rect[2], rect[3]))
         w, h = mask.size

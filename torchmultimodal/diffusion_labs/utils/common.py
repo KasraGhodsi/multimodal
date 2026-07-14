@@ -31,12 +31,12 @@ def cascaded_resize(pil_image: Image, resolution: int) -> Image:
     """
     while min(*pil_image.size) >= 2 * resolution:
         pil_image = pil_image.resize(
-            tuple(x // 2 for x in pil_image.size), resample=PIL.Image.BOX
+            tuple(x // 2 for x in pil_image.size), resample=PIL.Image.Resampling.BOX
         )
     scale = resolution / min(*pil_image.size)
     pil_image = pil_image.resize(
         tuple(round(x * scale) for x in pil_image.size),
-        resample=PIL.Image.BICUBIC,
+        resample=PIL.Image.Resampling.BICUBIC,
     )
 
     return pil_image

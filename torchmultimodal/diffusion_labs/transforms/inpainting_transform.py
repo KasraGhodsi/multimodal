@@ -202,9 +202,9 @@ def brush_stroke_mask_image(im: Tensor) -> Tensor:
         draw_strokes(mask, vertex, width)
 
     if np.random.normal() > 0:
-        mask.transpose(Image.FLIP_LEFT_RIGHT)
+        mask.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
     if np.random.normal() > 0:
-        mask.transpose(Image.FLIP_TOP_BOTTOM)
+        mask.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
 
     mask = np.reshape(mask, (1, img_height, img_width))
     mask = torch.tensor(mask, dtype=im.dtype).permute(0, 1, 2)

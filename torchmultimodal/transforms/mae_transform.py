@@ -46,7 +46,7 @@ class ImageEvalTransform:
     def __init__(
         self,
         input_size: int,
-        interpolation: int = Image.BICUBIC,
+        interpolation: int = Image.Resampling.BICUBIC,
         mean: Tuple[float, float, float] = (0.485, 0.456, 0.406),
         std: Tuple[float, float, float] = (0.229, 0.224, 0.225),
     ):
@@ -95,7 +95,7 @@ class ImagePretrainTransform:
         self,
         input_size: int,
         scale: Tuple[float, float] = (0.2, 1.0),
-        interpolation: int = Image.BICUBIC,
+        interpolation: int = Image.Resampling.BICUBIC,
         mean: Tuple[float, float, float] = (0.485, 0.456, 0.406),
         std: Tuple[float, float, float] = (0.229, 0.224, 0.225),
     ) -> None:
@@ -250,7 +250,7 @@ class RandAug:
 
     MAX_MAG = 10
     FILL_COLOR = (124, 116, 104)
-    INTERPOLATIONS = (Image.BILINEAR, Image.BICUBIC)
+    INTERPOLATIONS = (Image.Resampling.BILINEAR, Image.Resampling.BICUBIC)
 
     def __init__(
         self,
@@ -382,7 +382,7 @@ class RandAug:
                 interpolation = random.choice(self.INTERPOLATIONS)
                 x = x.transform(
                     x.size,
-                    Image.AFFINE,
+                    Image.Transform.AFFINE,
                     (1, shear, 0, 0, 1, 0),
                     fillcolor=self.FILL_COLOR,
                     resample=interpolation,
@@ -393,7 +393,7 @@ class RandAug:
                 interpolation = random.choice(self.INTERPOLATIONS)
                 x = x.transform(
                     x.size,
-                    Image.AFFINE,
+                    Image.Transform.AFFINE,
                     (1, 0, 0, shear, 1, 0),
                     fillcolor=self.FILL_COLOR,
                     resample=interpolation,
@@ -405,7 +405,7 @@ class RandAug:
                 interpolation = random.choice(self.INTERPOLATIONS)
                 x = x.transform(
                     x.size,
-                    Image.AFFINE,
+                    Image.Transform.AFFINE,
                     (1, 0, translate, 0, 1, 0),
                     fillcolor=self.FILL_COLOR,
                     resample=interpolation,
@@ -418,7 +418,7 @@ class RandAug:
                 interpolation = random.choice(self.INTERPOLATIONS)
                 x = x.transform(
                     x.size,
-                    Image.AFFINE,
+                    Image.Transform.AFFINE,
                     (1, 0, 0, 0, 1, translate),
                     fillcolor=self.FILL_COLOR,
                     resample=interpolation,
